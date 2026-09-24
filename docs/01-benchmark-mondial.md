@@ -26,7 +26,7 @@
 - **Sources** : Sensor Tower (*State of Mobile / State of Gaming 2026*, bilan S1 2026), AppMagic (rapports Casual 2025 et S1 2026, classements 2025), GameAnalytics (benchmarks 2025 et 2026 : 11 600 à 16 000+ jeux), Appodeal (eCPM), Niko Partners (MENA), StatCounter (parts d'OS), documentation officielle Google Play et Play Games Services, presse spécialisée (PocketGamer.biz, mobilegamer.biz, Deconstructor of Fun…). Liste complète en fin de document.
 - **Collecte** : l'environnement utilisé bloquait l'ouverture directe des pages sources (politique réseau). Les chiffres proviennent des synthèses publiées par ces sources et récupérées via moteur de recherche. **Ils sont à revérifier** avant toute décision d'investissement importante.
 - **Conventions** : « ≈ » = arrondi ; « *estim.* » = ordre de grandeur non sourcé ligne à ligne (connaissance du marché), à confirmer sur StatCounter / AppMagic.
-- **« Tous les pays »** : 45 marchés sont détaillés, et chaque pays est rattaché à un palier (§5.3). Un pays non listé suit le profil de sa région.
+- **« Tous les pays »** : 51 pays sont détaillés (§5.1), plus d'une centaine d'autres sont classés par palier (§5.3). Un pays non listé suit le profil de sa région.
 
 ---
 
@@ -113,7 +113,7 @@ Benchmarks GameAnalytics (2025-2026) :
 
 ## 5. Benchmark par pays
 
-### 5.1 Tableau de synthèse (45 marchés)
+### 5.1 Tableau de synthèse (51 pays)
 
 Légende priorité : ★★★ cœur de cible · ★★ important · ★ bonus (même build) · ☆ secondaire · ✖ exclu.
 
@@ -144,11 +144,11 @@ Légende priorité : ★★★ cœur de cible · ★★ important · ★ bonus (
 | 🇵🇰 Pakistan / 🇧🇩 Bangladesh | ≈ 95 % *estim.* | Gros volumes | 4 | Casual, arcade | EN/UR/BN | ☆ |
 | 🇧🇷 Brésil | ≈ 81 % | 93 M de joueurs ; ARPU ≈ 8 $ ; **marché n°1 des soft launch** ; 6,5 % des téléchargements mondiaux | 3 | *Free Fire*, *Roblox*, *Coin Master*, *Candy Crush*, *Royal Match* | PT-BR | ★★★ |
 | 🇲🇽 Mexique | ≈ 80 % *estim.* | 66,7 M de joueurs ; **+21 % de dépenses en 2025** | 3 | Casual et puzzle très appréciés ; pub bien acceptée | ES-LATAM | ★★★ |
-| 🇦🇷 🇨🇴 🇨🇱 🇵🇪 | très majoritaire *estim.* | Amérique latine : IAP +13 % en 2025 ; sessions longues, acquisition peu chère | 3 | Simulation, stratégie, RPG, shooters (60 % du CA) | ES | ★ |
+| 🇦🇷 🇨🇴 🇨🇱 🇵🇪 | très majoritaire *estim.* | Amérique latine : IAP +13 % en 2025 ; sessions longues, acquisition peu chère | 3 (Chili : 2) | Simulation, stratégie, RPG, shooters (60 % du CA) | ES | ★ |
 | 🇸🇦 Arabie saoudite | ≈ moitié *estim.* (iOS en forte hausse) | ARPU ≈ 55 $ ; ≈ 40 % du marché MENA ; +14 % de dépenses en 2025 | 1-2 | Stratégie (la plus rentable), shooters, casual | AR | ★★ |
 | 🇦🇪 Émirats | ≈ moitié *estim.* | **ARPU ≈ 84,6 $ (n°1 MENA)** ; entré dans le top 30 mondial en 2025 | 1 | Idem | AR/EN | ★★ |
 | 🇪🇬 Égypte | très majoritaire *estim.* | **n°1 en Afrique (368 M$)** ; ARPU ≈ 3,4 $ | 4 | Casual, football | AR | ★ |
-| 🇲🇦 🇩🇿 🇹🇳 Maghreb | très majoritaire *estim.* | Volume, francophonie | 4 | Casual | FR/AR | ★ |
+| 🇲🇦 🇩🇿 🇹🇳 Maghreb | très majoritaire *estim.* | Volume, francophonie | 3-4 | Casual | FR/AR | ★ |
 | 🇮🇱 Israël | variable | Marché riche | 1-2 | Casual | HE | ☆ |
 | 🇳🇬 Nigeria | très majoritaire | 300 M$ ; 90 % jouent sur smartphone ; data −20 % entre 2023 et 2025 | 4 | Football, casual ; forte demande de représentation culturelle | EN | ★ |
 | 🇿🇦 Afrique du Sud | majoritaire *estim.* | 278 M$ | 3 | Casual | EN | ★ |
