@@ -1,0 +1,1007 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ATOLL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600&family=Lilita+One&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #D9F2EE;
+    --ink: #0E3F4E;
+    --ink-soft: #3E6B76;
+    --panel: #F3FBF9;
+    --line: #AFDAD3;
+    --accent: #129C98;
+    --accent-ink: #FFFFFF;
+    --board: #0F5566;
+    --sea: #3FC4C0;
+    --sea-2: #7ADAD4;
+    --hole: #E6D5AE;
+    --nacre-1: #FFF8EF;
+    --nacre-2: #E4DCFF;
+    --nacre-3: #C6F1EA;
+    --b1: #FF6F59;
+    --b2: #FFB23F;
+    --b3: #3FB57A;
+    --b4: #8B6CEF;
+    --b5: #2F7BDD;
+    --gold: #E9A20E;
+    --shadow: rgba(8, 45, 55, 0.22);
+    --display: "Lilita One", "Arial Rounded MT Bold", "Trebuchet MS", system-ui, sans-serif;
+    --text: "Lexend", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #06252D;
+      --ink: #DDF4F0;
+      --ink-soft: #93BFC0;
+      --panel: #0B333D;
+      --line: #1A4E59;
+      --accent: #37CBC5;
+      --accent-ink: #04262D;
+      --board: #03181E;
+      --sea: #0F4F5B;
+      --sea-2: #1B7383;
+      --hole: #4B4432;
+      --nacre-1: #FFF8EF;
+      --nacre-2: #D8CEFF;
+      --nacre-3: #B9EFE7;
+      --b1: #FF7C67;
+      --b2: #FFC152;
+      --b3: #4DC68B;
+      --b4: #9C80F7;
+      --b5: #4A8FEB;
+      --gold: #FFC940;
+      --shadow: rgba(0, 0, 0, 0.45);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #06252D;
+    --ink: #DDF4F0;
+    --ink-soft: #93BFC0;
+    --panel: #0B333D;
+    --line: #1A4E59;
+    --accent: #37CBC5;
+    --accent-ink: #04262D;
+    --board: #03181E;
+    --sea: #0F4F5B;
+    --sea-2: #1B7383;
+    --hole: #4B4432;
+    --nacre-1: #FFF8EF;
+    --nacre-2: #D8CEFF;
+    --nacre-3: #B9EFE7;
+    --b1: #FF7C67;
+    --b2: #FFC152;
+    --b3: #4DC68B;
+    --b4: #9C80F7;
+    --b5: #4A8FEB;
+    --gold: #FFC940;
+    --shadow: rgba(0, 0, 0, 0.45);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--text);
+    font-size: 15px;
+    line-height: 1.45;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button { font: inherit; color: inherit; }
+  :focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+
+  .app {
+    max-width: 480px;
+    margin-inline: auto;
+    padding-inline: 16px;
+    padding-block: 12px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .brand { display: flex; align-items: baseline; gap: 8px; }
+  .logo { font-family: var(--display); font-size: 32px; line-height: 1; letter-spacing: 0.06em; color: var(--ink); }
+  .tag { font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink-soft); }
+
+  .modes { display: inline-flex; padding: 3px; gap: 3px; border-radius: 999px; background: var(--panel); border: 1px solid var(--line); }
+  .modes button {
+    border: 0; background: transparent; padding: 7px 12px; border-radius: 999px;
+    font-size: 13px; font-weight: 500; cursor: pointer; color: var(--ink-soft);
+  }
+  .modes button[aria-selected="true"] { background: var(--accent); color: var(--accent-ink); }
+
+  .hud { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
+  .label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-soft); }
+  .num { font-family: var(--display); font-size: 42px; line-height: 1; font-variant-numeric: tabular-nums; }
+  .meta { display: flex; gap: 16px; text-align: right; }
+  .num-s { font-family: var(--display); font-size: 20px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .daily-tag { font-size: 12px; color: var(--ink-soft); }
+
+  .stage { position: relative; }
+  #board {
+    display: block; width: 100%; max-width: 100%;
+    touch-action: none; user-select: none; -webkit-user-select: none;
+    border-radius: 22px; cursor: grab;
+  }
+
+  .hint { margin: 0; min-height: 3em; font-size: 14px; color: var(--ink-soft); text-wrap: balance; }
+  .hint b { color: var(--ink); font-weight: 600; }
+
+  .tools { display: flex; gap: 8px; flex-wrap: wrap; }
+  .btn {
+    border: 1px solid var(--line); background: var(--panel); color: var(--ink);
+    padding: 9px 14px; border-radius: 12px; font-size: 14px; font-weight: 500; cursor: pointer;
+  }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .btn:disabled { opacity: 0.45; cursor: default; }
+
+  .sheet {
+    position: absolute; inset: auto 10px 10px 10px;
+    background: var(--panel); color: var(--ink);
+    border: 1px solid var(--line); border-radius: 20px;
+    box-shadow: 0 18px 40px var(--shadow);
+    padding: 18px 18px 16px;
+    display: flex; flex-direction: column; gap: 12px;
+    animation: rise 260ms ease-out;
+  }
+  @keyframes rise { from { transform: translateY(16px); opacity: 0.4; } to { transform: none; opacity: 1; } }
+  .sheet h2 { margin: 0; font-family: var(--display); font-weight: 400; font-size: 26px; line-height: 1.1; text-wrap: balance; }
+  .sheet .final { font-family: var(--display); font-size: 48px; line-height: 1; font-variant-numeric: tabular-nums; }
+  .sheet .sub { margin: 0; font-size: 13px; color: var(--ink-soft); }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .stats div { display: flex; flex-direction: column; gap: 2px; }
+  .stats .v { font-family: var(--display); font-size: 20px; font-variant-numeric: tabular-nums; }
+  .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .actions .btn { flex: 1 1 auto; }
+  .ad-note { font-size: 11px; color: var(--ink-soft); }
+  #share-text {
+    width: 100%; min-height: 86px; resize: none;
+    border: 1px dashed var(--line); border-radius: 12px; background: transparent; color: var(--ink);
+    font: 13px/1.45 ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; padding: 8px 10px;
+  }
+
+  .rules {
+    border: 1px solid var(--line); border-radius: 18px; background: var(--panel);
+    padding: 16px 18px; display: flex; flex-direction: column; gap: 10px;
+  }
+  .rules h2 { margin: 0; font-family: var(--display); font-weight: 400; font-size: 22px; }
+  .rules p, .rules li { margin: 0; font-size: 14px; max-width: 62ch; }
+  .rules ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; }
+  .rules table { border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
+  .rules td { padding: 4px 10px 4px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .scroll-x { overflow-x: auto; }
+
+  @media (max-width: 360px) {
+    .num { font-size: 36px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand">
+      <span class="logo">ATOLL</span>
+      <span class="tag">prototype</span>
+    </div>
+    <div class="modes" role="tablist" aria-label="Mode de jeu">
+      <button id="mode-classic" role="tab" aria-selected="true">Classique</button>
+      <button id="mode-daily" role="tab" aria-selected="false">Défi du jour</button>
+    </div>
+  </header>
+
+  <section class="hud" aria-live="polite">
+    <div>
+      <span class="label" id="score-label">Score</span>
+      <span id="score" class="num">0</span>
+    </div>
+    <div class="meta">
+      <div>
+        <span class="label">Perles</span>
+        <span id="pearls" class="num-s">0</span>
+      </div>
+      <div id="left-wrap" hidden>
+        <span class="label">Pièces</span>
+        <span id="left" class="num-s">45</span>
+      </div>
+      <div>
+        <span class="label" id="best-label">Record</span>
+        <span id="best" class="num-s">0</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="stage" id="stage">
+    <canvas id="board" tabindex="0" aria-label="Plateau ATOLL. Glisse une pièce sur la grille. Au clavier : touches 1 à 3 pour choisir une pièce, flèches pour la déplacer, Entrée pour la poser, Échap pour annuler."></canvas>
+
+    <div id="sheet" class="sheet" hidden role="dialog" aria-labelledby="sheet-title">
+      <h2 id="sheet-title">Plus de place !</h2>
+      <div class="final" id="final-score">0</div>
+      <p class="sub" id="final-sub">Record : 0</p>
+      <div class="stats">
+        <div><span class="label">Lagons</span><span class="v" id="st-lagoons">0</span></div>
+        <div><span class="label">Perles</span><span class="v" id="st-cashed">0</span></div>
+        <div><span class="label">Combo</span><span class="v" id="st-combo">0</span></div>
+        <div><span class="label">Poses</span><span class="v" id="st-moves">0</span></div>
+      </div>
+      <div class="actions">
+        <button class="btn primary" id="btn-revive">Continuer</button>
+        <button class="btn" id="btn-again">Rejouer</button>
+        <button class="btn" id="btn-copy">Copier le résultat</button>
+      </div>
+      <span class="ad-note" id="ad-note">Dans le vrai jeu, « Continuer » déclenche une pub récompensée (une fois par partie).</span>
+      <label class="label" for="share-text">Carte de partage</label>
+      <textarea id="share-text" readonly></textarea>
+    </div>
+  </div>
+
+  <p class="hint" id="hint">Encercle au moins 2 cases vides : elles deviennent des <b>perles</b>, et chaque perle multiplie la ligne qui l'efface.</p>
+
+  <div class="tools">
+    <button class="btn" id="btn-new">Nouvelle partie</button>
+    <button class="btn" id="btn-sound" aria-pressed="false">Son : coupé</button>
+    <button class="btn" id="btn-rules" aria-expanded="false" aria-controls="rules">Règles</button>
+  </div>
+
+  <section class="rules" id="rules" hidden>
+    <h2>Comment on joue</h2>
+    <ul>
+      <li>Glisse les 3 pièces sur la grille, dans l'ordre que tu veux. Une ligne ou une colonne pleine s'efface.</li>
+      <li>Les cases vides reliées au bord forment <b>la mer</b> (elles ondulent). Si tu <b>encercles</b> au moins 2 cases vides, la mer se retire : elles deviennent des <b>perles</b>.</li>
+      <li>Une perle compte comme une case pleine. Quand une ligne s'efface, chaque perle multiplie son score : 1 perle ×2, 2 perles ×3…</li>
+      <li>Pendant que tu glisses, le contour doré montre les futures perles et les lignes qui vont sauter.</li>
+      <li>Un trou d'une seule case encerclé reste du sable : évite-les.</li>
+    </ul>
+    <div class="scroll-x">
+      <table>
+        <tr><td>Poser</td><td>+1 par case</td></tr>
+        <tr><td>Lagon</td><td>20 × surface, +100 dès 6 cases</td></tr>
+        <tr><td>Ligne</td><td>90 × (1 + perles)</td></tr>
+        <tr><td>Plusieurs lignes</td><td>× nombre de lignes</td></tr>
+        <tr><td>Combo</td><td>× (1 + 0,5 par effacement enchaîné en moins de 3 poses)</td></tr>
+      </table>
+    </div>
+    <p><b>Défi du jour</b> : la même suite de 45 pièces pour tout le monde, renouvelée au reset des classements Google Play (UTC-7). Seul le premier essai compte. Dans le jeu complet, ton score s'ajoute à celui de ton pays.</p>
+  </section>
+</div>
+
+<script src="atoll-core.js"></script>
+<script>
+(function () {
+  'use strict';
+  var A = window.AtollCore;
+  var N = A.SIZE;
+
+  // ---------- Préférences & stockage ----------
+  var reduceMotion = false;
+  try { reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+  function load(key, fallback) {
+    try { var v = localStorage.getItem(key); return v == null ? fallback : JSON.parse(v); } catch (e) { return fallback; }
+  }
+  function save(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {} }
+
+  // ---------- DOM ----------
+  var $ = function (id) { return document.getElementById(id); };
+  var canvas = $('board');
+  var ctx = canvas.getContext('2d');
+  var stage = $('stage');
+  var el = {
+    score: $('score'), best: $('best'), bestLabel: $('best-label'), pearls: $('pearls'),
+    left: $('left'), leftWrap: $('left-wrap'), hint: $('hint'),
+    sheet: $('sheet'), sheetTitle: $('sheet-title'), finalScore: $('final-score'), finalSub: $('final-sub'),
+    stLagoons: $('st-lagoons'), stCashed: $('st-cashed'), stCombo: $('st-combo'), stMoves: $('st-moves'),
+    revive: $('btn-revive'), again: $('btn-again'), copy: $('btn-copy'), share: $('share-text'), adNote: $('ad-note'),
+    modeClassic: $('mode-classic'), modeDaily: $('mode-daily'),
+    btnNew: $('btn-new'), btnSound: $('btn-sound'), btnRules: $('btn-rules'), rules: $('rules')
+  };
+
+  // ---------- Couleurs (lues depuis les tokens CSS) ----------
+  var C = {};
+  function readColors() {
+    var cs = getComputedStyle(document.documentElement);
+    ['board', 'sea', 'sea-2', 'hole', 'nacre-1', 'nacre-2', 'nacre-3', 'b1', 'b2', 'b3', 'b4', 'b5', 'gold', 'ink', 'panel', 'line', 'accent']
+      .forEach(function (k) { C[k] = cs.getPropertyValue('--' + k).trim(); });
+    C.blocks = [C.b1, C.b2, C.b3, C.b4, C.b5];
+    C.displayFont = cs.getPropertyValue('--display').trim() || 'sans-serif';
+  }
+  readColors();
+  try {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () { readColors(); dirty = true; });
+  } catch (e) {}
+  new MutationObserver(function () { readColors(); dirty = true; })
+    .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+  // ---------- État ----------
+  var game = null;
+  var colors = new Int8Array(N * N);        // couleur de chaque bloc posé (-1 = aucune)
+  var handColors = [0, 1, 2];
+  var colorCursor = 0;
+  var session = null;                        // { mode, seed, tutorial, moves: [] } -> permet de rejouer l'état
+  var tutorialStep = 0;
+  var drag = null;                           // { k, piece, x, y, lift, r0, c0, preview, keyboard }
+  var anims = [];
+  var particles = [];
+  var floaters = [];
+  var shakeUntil = 0;
+  var dirty = true;
+  var geo = null;
+  var seaMask = new Uint8Array(N * N);
+  var sheetTimer = null;
+
+  function nextColor() { colorCursor = (colorCursor + 1) % 5; return colorCursor; }
+  function refreshHandColors() { for (var k = 0; k < 3; k++) handColors[k] = nextColor(); }
+
+  // ---------- Démarrage d'une partie ----------
+  function dailySeed() { return A.hashString('atoll-daily-' + A.dailyKey()); }
+
+  function newSession(mode, opts) {
+    opts = opts || {};
+    var s = { mode: mode, seed: mode === 'daily' ? dailySeed() : (opts.seed != null ? opts.seed : (Math.random() * 4294967296) >>> 0),
+      tutorial: !!opts.tutorial, dayKey: mode === 'daily' ? A.dailyKey() : null, moves: [] };
+    return s;
+  }
+
+  function applyTutorial(g) {
+    // Un anneau presque fermé autour de 2 cases + une ligne à compléter.
+    var blocks = [[3, 3], [3, 4], [3, 5], [3, 6], [4, 3], [4, 6], [5, 3], [5, 4], [5, 6], [4, 0], [4, 1], [4, 2], [4, 7]];
+    blocks.forEach(function (p) { g.grid[p[0] * N + p[1]] = A.BLOCK; colors[p[0] * N + p[1]] = (p[0] + p[1]) % 5; });
+    var dot = A.PIECES.filter(function (p) { return p.family === 'dot'; })[0];
+    var i3 = A.PIECES.filter(function (p) { return p.family === 'i3' && p.w === 3; })[0];
+    g.hand = [dot, dot, i3];
+  }
+
+  function startSession(s, replay) {
+    session = s;
+    colors.fill(-1);
+    game = A.createGame({ mode: s.mode, seed: s.seed });
+    if (s.tutorial) applyTutorial(game);
+    refreshHandColors();
+    anims = []; particles = []; floaters = []; drag = null;
+    tutorialStep = s.tutorial ? 1 : 0;
+    clearTimeout(sheetTimer);
+    el.sheet.hidden = true;
+    // Rejouer les coups (reprise après une mise à jour de la page).
+    (replay || []).forEach(function (m) {
+      if (m === 'revive') { A.revive(game); refreshHandColors(); return; }
+      applyMove(m[0], m[1], m[2], true);
+    });
+    s.moves = (replay || []).slice();
+    if (s.moves.length) tutorialStep = 0;
+    updateModeUI();
+    updateHud();
+    updateHint();
+    computeSea();
+    dirty = true;
+    if (game.over) showSheet(true);
+  }
+
+  function start(mode, opts) {
+    var tutorial = mode === 'classic' && !load('atoll.tutoDone', false);
+    startSession(newSession(mode, Object.assign({ tutorial: tutorial }, opts)));
+  }
+
+  // ---------- HUD ----------
+  function bestKey() { return session.mode === 'daily' ? 'atoll.daily.' + session.dayKey : 'atoll.best.classic'; }
+  function fmt(n) { return Math.round(n).toLocaleString('fr-FR'); }
+
+  function updateHud() {
+    el.score.textContent = fmt(game.score);
+    el.pearls.textContent = fmt(game.pearlsCashed);
+    if (session.mode === 'daily') {
+      var d = load(bestKey(), null);
+      el.bestLabel.textContent = 'Officiel';
+      el.best.textContent = d ? fmt(d.official) : '—';
+      el.leftWrap.hidden = false;
+      el.left.textContent = String(A.piecesLeft(game));
+    } else {
+      el.bestLabel.textContent = 'Record';
+      el.best.textContent = fmt(Math.max(load(bestKey(), 0), game.score));
+      el.leftWrap.hidden = true;
+    }
+  }
+
+  function updateModeUI() {
+    var daily = session.mode === 'daily';
+    el.modeClassic.setAttribute('aria-selected', String(!daily));
+    el.modeDaily.setAttribute('aria-selected', String(daily));
+  }
+
+  function setHint(html) { el.hint.innerHTML = html; }
+  function updateHint() {
+    if (tutorialStep === 1) return setHint('Glisse un <b>petit carré</b> dans l\'ouverture de l\'anneau (case qui clignote) : tu vas créer ton premier lagon.');
+    if (tutorialStep === 2) return setHint('Un lagon ! Pose l\'autre petit carré au bout de la ligne des perles : <b>2 perles = ligne ×3</b>.');
+    if (session.mode === 'daily') {
+      var d = load(bestKey(), null);
+      return setHint(d ? 'Entraînement : ton score officiel du jour est déjà enregistré (' + fmt(d.official) + ').'
+        : 'Défi du ' + frDate(session.dayKey) + ' : la même suite de 45 pièces pour tout le monde. <b>Seul ce premier essai compte.</b>');
+    }
+    setHint('Encercle au moins 2 cases vides : elles deviennent des <b>perles</b>, et chaque perle multiplie la ligne qui l\'efface.');
+  }
+  function frDate(key) { var p = key.split('-'); return p[2] + '/' + p[1]; }
+
+  // ---------- Géométrie ----------
+  function layout() {
+    var w = Math.min(stage.clientWidth, 480);
+    var pad = Math.round(w * 0.035);
+    var boardSize = w - pad * 2;
+    var cell = boardSize / N;
+    var handTop = pad + boardSize + pad * 0.9;
+    var hcell = Math.min(cell * 0.66, (w / 3) / 5.4);
+    var handH = hcell * 3 + pad * 2.2;
+    var h = Math.round(handTop + handH + pad * 0.6);
+    var dpr = Math.min(window.devicePixelRatio || 1, 3);
+    canvas.style.height = h + 'px';
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    geo = { w: w, h: h, pad: pad, bx: pad, by: pad, size: boardSize, cell: cell,
+      handTop: handTop, handH: handH, slotW: w / 3, hcell: hcell };
+    dirty = true;
+  }
+
+  function slotRect(k) {
+    return { x: k * geo.slotW, y: geo.handTop, w: geo.slotW, h: geo.handH };
+  }
+
+  // ---------- Mer vs sable ----------
+  function computeSea() {
+    seaMask.fill(0);
+    var stack = [];
+    function seed(r, c) { var i = r * N + c; if (game.grid[i] === A.EMPTY && !seaMask[i]) { seaMask[i] = 1; stack.push(i); } }
+    for (var k = 0; k < N; k++) { seed(0, k); seed(N - 1, k); seed(k, 0); seed(k, N - 1); }
+    while (stack.length) {
+      var i = stack.pop(), r = (i / N) | 0, c = i % N;
+      if (r > 0) seed(r - 1, c); if (r < N - 1) seed(r + 1, c);
+      if (c > 0) seed(r, c - 1); if (c < N - 1) seed(r, c + 1);
+    }
+  }
+
+  // ---------- Dessin ----------
+  function roundRect(x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  function shade(hex, amt) {
+    var m = /^#?([0-9a-f]{6})$/i.exec(hex || '');
+    if (!m) return hex;
+    var n = parseInt(m[1], 16), r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+    var f = function (v) { return Math.max(0, Math.min(255, Math.round(amt < 0 ? v * (1 + amt) : v + (255 - v) * amt))); };
+    return 'rgb(' + f(r) + ',' + f(g) + ',' + f(b) + ')';
+  }
+
+  function drawBlock(x, y, s, color, alpha) {
+    var gap = s * 0.07, r = s * 0.2;
+    ctx.globalAlpha = alpha == null ? 1 : alpha;
+    roundRect(x + gap, y + gap, s - gap * 2, s - gap * 2, r);
+    ctx.fillStyle = color; ctx.fill();
+    roundRect(x + gap, y + gap, s - gap * 2, (s - gap * 2) * 0.46, r);
+    ctx.fillStyle = shade(color, 0.28); ctx.globalAlpha = (alpha == null ? 1 : alpha) * 0.55; ctx.fill();
+    ctx.globalAlpha = (alpha == null ? 1 : alpha);
+    ctx.lineWidth = Math.max(1, s * 0.05);
+    ctx.strokeStyle = shade(color, -0.25);
+    roundRect(x + gap, y + gap, s - gap * 2, s - gap * 2, r); ctx.stroke();
+    ctx.globalAlpha = 1;
+  }
+
+  function drawPearl(x, y, s, t, scale) {
+    var cx = x + s / 2, cy = y + s / 2, rad = s * 0.36 * (scale == null ? 1 : scale);
+    if (rad <= 0.5) return;
+    var gap = s * 0.07;
+    roundRect(x + gap, y + gap, s - gap * 2, s - gap * 2, s * 0.2);
+    ctx.fillStyle = shade(C.sea, -0.35); ctx.globalAlpha = 0.35; ctx.fill(); ctx.globalAlpha = 1;
+    var g = ctx.createRadialGradient(cx - rad * 0.35, cy - rad * 0.4, rad * 0.1, cx, cy, rad);
+    var wob = reduceMotion ? 0 : Math.sin(t / 700 + x * 0.05 + y * 0.03) * 0.5 + 0.5;
+    g.addColorStop(0, C['nacre-1']);
+    g.addColorStop(0.55 + wob * 0.15, C['nacre-2']);
+    g.addColorStop(1, C['nacre-3']);
+    ctx.beginPath(); ctx.arc(cx, cy, rad, 0, Math.PI * 2); ctx.fillStyle = g; ctx.fill();
+    ctx.beginPath(); ctx.arc(cx - rad * 0.35, cy - rad * 0.38, rad * 0.22, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255,255,255,0.85)'; ctx.fill();
+  }
+
+  function drawSea(x, y, s, t, i) {
+    var gap = s * 0.07;
+    roundRect(x + gap, y + gap, s - gap * 2, s - gap * 2, s * 0.2);
+    ctx.fillStyle = C.sea; ctx.fill();
+    if (!reduceMotion) {
+      var r = (i / N) | 0, c = i % N;
+      var wave = Math.sin(t / 1100 + c * 0.8 + r * 0.5) * 0.5 + 0.5;
+      var yy = y + s * (0.5 + (wave - 0.5) * 0.12), a = s * 0.09;
+      ctx.globalAlpha = 0.1 + wave * 0.2;
+      ctx.beginPath();
+      ctx.moveTo(x + s * 0.24, yy);
+      ctx.bezierCurveTo(x + s * 0.36, yy - a, x + s * 0.44, yy - a, x + s * 0.5, yy);
+      ctx.bezierCurveTo(x + s * 0.56, yy + a, x + s * 0.64, yy + a, x + s * 0.76, yy);
+      ctx.strokeStyle = C['sea-2']; ctx.lineWidth = Math.max(1, s * 0.045); ctx.lineCap = 'round'; ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  function drawHole(x, y, s) {
+    var gap = s * 0.07;
+    roundRect(x + gap, y + gap, s - gap * 2, s - gap * 2, s * 0.2);
+    ctx.fillStyle = C.hole; ctx.fill();
+    ctx.fillStyle = shade(C.hole, -0.18);
+    [[0.32, 0.36], [0.62, 0.3], [0.48, 0.64], [0.72, 0.68]].forEach(function (p) {
+      ctx.beginPath(); ctx.arc(x + s * p[0], y + s * p[1], s * 0.035, 0, Math.PI * 2); ctx.fill();
+    });
+  }
+
+  function drawPiece(piece, colorIdx, x, y, s, alpha) {
+    piece.cells.forEach(function (p) { drawBlock(x + p[1] * s, y + p[0] * s, s, C.blocks[colorIdx], alpha); });
+  }
+
+  function cellAnims(t) {
+    // Index -> dessin spécial pour les cases animées (apparition, effacement).
+    var map = {};
+    for (var a = 0; a < anims.length; a++) {
+      var an = anims[a];
+      var p = (t - an.start) / an.dur;
+      if (an.type === 'pearl') {
+        if (p < 0) map[an.i] = { hide: true };
+        else if (p < 1) map[an.i] = { pearlScale: p < 0.7 ? (p / 0.7) * 1.15 : 1.15 - (p - 0.7) / 0.3 * 0.15 };
+      } else if (an.type === 'clear') {
+        var prev = map[an.i] || {};
+        if (p < 0) map[an.i] = { ghost: an, hide: prev.hide, pearlScale: prev.pearlScale };
+        else if (p < 1) map[an.i] = { ghost: an, fade: p };
+      } else if (an.type === 'pop') {
+        if (p >= 0 && p < 1) map[an.i] = { pop: 0.82 + 0.18 * Math.sin(p * Math.PI / 2) };
+      }
+    }
+    return map;
+  }
+
+  function render(t) {
+    if (!geo) return;
+    ctx.clearRect(0, 0, geo.w, geo.h);
+    var sx = 0, sy = 0;
+    if (!reduceMotion && t < shakeUntil) {
+      var k = (shakeUntil - t) / 260;
+      sx = (Math.random() - 0.5) * 6 * k; sy = (Math.random() - 0.5) * 6 * k;
+    }
+    ctx.save();
+    ctx.translate(sx, sy);
+
+    // Cadre du plateau (le récif)
+    roundRect(geo.bx - geo.pad * 0.55, geo.by - geo.pad * 0.55, geo.size + geo.pad * 1.1, geo.size + geo.pad * 1.1, 22);
+    ctx.fillStyle = C.board; ctx.fill();
+
+    var s = geo.cell, am = cellAnims(t);
+    var pv = drag && drag.preview;
+    var pearlSet = {}, lineSet = {};
+    if (pv) {
+      pv.pearls.forEach(function (i) { pearlSet[i] = true; });
+      pv.lines.forEach(function (L) { L.cells.forEach(function (i) { lineSet[i] = true; }); });
+    }
+
+    for (var i = 0; i < N * N; i++) {
+      var r = (i / N) | 0, c = i % N;
+      var x = geo.bx + c * s, y = geo.by + r * s;
+      var st = game.grid[i], a = am[i];
+      if (a && a.ghost) {
+        drawSea(x, y, s, t, i);
+        var g = a.ghost, f = a.fade || 0;
+        var sc = 1 - f;
+        if (sc > 0.02 && !a.hide) {
+          ctx.save();
+          ctx.translate(x + s / 2, y + s / 2); ctx.scale(sc, sc); ctx.translate(-(x + s / 2), -(y + s / 2));
+          if (g.kind === A.PEARL) drawPearl(x, y, s, t, a.pearlScale != null ? a.pearlScale : 1);
+          else drawBlock(x, y, s, C.blocks[Math.max(0, g.color)]);
+          ctx.restore();
+        }
+        continue;
+      }
+      if (st === A.EMPTY) {
+        if (seaMask[i]) drawSea(x, y, s, t, i); else drawHole(x, y, s);
+      } else if (st === A.PEARL) {
+        if (a && a.hide) { drawSea(x, y, s, t, i); }
+        else drawPearl(x, y, s, t, a && a.pearlScale != null ? a.pearlScale : 1);
+      } else {
+        if (a && a.pop) {
+          ctx.save();
+          ctx.translate(x + s / 2, y + s / 2); ctx.scale(a.pop, a.pop); ctx.translate(-(x + s / 2), -(y + s / 2));
+          drawBlock(x, y, s, C.blocks[Math.max(0, colors[i])]);
+          ctx.restore();
+        } else drawBlock(x, y, s, C.blocks[Math.max(0, colors[i])]);
+      }
+      if (lineSet[i]) {
+        roundRect(x + s * 0.07, y + s * 0.07, s * 0.86, s * 0.86, s * 0.2);
+        ctx.fillStyle = 'rgba(255,255,255,0.28)'; ctx.fill();
+      }
+    }
+
+    // Aperçu : pièce fantôme + futures perles
+    if (pv && drag) {
+      drag.piece.cells.forEach(function (p) {
+        drawBlock(geo.bx + (drag.c0 + p[1]) * s, geo.by + (drag.r0 + p[0]) * s, s, C.blocks[handColors[drag.k]], 0.42);
+      });
+      var pulse = reduceMotion ? 1 : 0.6 + 0.4 * Math.sin(t / 160);
+      pv.pearls.forEach(function (i2) {
+        var x2 = geo.bx + (i2 % N) * s, y2 = geo.by + ((i2 / N) | 0) * s;
+        roundRect(x2 + s * 0.1, y2 + s * 0.1, s * 0.8, s * 0.8, s * 0.2);
+        ctx.setLineDash([s * 0.12, s * 0.08]);
+        ctx.lineWidth = Math.max(2, s * 0.08); ctx.strokeStyle = C.gold; ctx.globalAlpha = pulse; ctx.stroke();
+        ctx.setLineDash([]); ctx.globalAlpha = 1;
+      });
+    }
+
+    if (drag && drag.keyboard && !pv) {
+      drag.piece.cells.forEach(function (p) {
+        var gx = geo.bx + (drag.c0 + p[1]) * s, gy = geo.by + (drag.r0 + p[0]) * s;
+        roundRect(gx + s * 0.1, gy + s * 0.1, s * 0.8, s * 0.8, s * 0.2);
+        ctx.setLineDash([s * 0.1, s * 0.1]); ctx.lineWidth = 2; ctx.strokeStyle = C.panel; ctx.stroke(); ctx.setLineDash([]);
+      });
+    }
+
+    // Tutoriel : case cible qui clignote
+    if (tutorialStep && !drag) {
+      var target = tutorialStep === 1 ? [5, 5] : [4, 8];
+      var blink = reduceMotion ? 0.7 : 0.45 + 0.45 * Math.sin(t / 220);
+      var tx = geo.bx + target[1] * s, ty = geo.by + target[0] * s;
+      roundRect(tx + s * 0.08, ty + s * 0.08, s * 0.84, s * 0.84, s * 0.2);
+      ctx.lineWidth = Math.max(2, s * 0.09); ctx.strokeStyle = C.gold; ctx.globalAlpha = blink; ctx.stroke(); ctx.globalAlpha = 1;
+    }
+
+    ctx.restore();
+
+    // Main de 3 pièces
+    for (var k = 0; k < 3; k++) {
+      var piece = game.hand[k];
+      if (!piece || (drag && drag.k === k && !drag.keyboard)) continue;
+      var rc = slotRect(k), hs = geo.hcell;
+      var px = rc.x + (rc.w - piece.w * hs) / 2, py = rc.y + (rc.h - piece.h * hs) / 2;
+      var fits = A.pieceFits(game.grid, piece);
+      drawPiece(piece, handColors[k], px, py, hs, fits ? 1 : 0.28);
+      if (drag && drag.keyboard && drag.k === k) {
+        roundRect(rc.x + 6, rc.y + 2, rc.w - 12, rc.h - 4, 14);
+        ctx.lineWidth = 2; ctx.strokeStyle = C.gold; ctx.stroke();
+      }
+    }
+
+    // Pièce en cours de glisser
+    if (drag && !drag.keyboard) {
+      var dx = drag.x - (drag.piece.w * s) / 2, dy = drag.y - drag.lift - (drag.piece.h * s) / 2;
+      ctx.save();
+      ctx.shadowColor = 'rgba(0,0,0,0.25)'; ctx.shadowBlur = 14; ctx.shadowOffsetY = 6;
+      drawPiece(drag.piece, handColors[drag.k], dx, dy, s, 0.96);
+      ctx.restore();
+    }
+
+    // Particules et textes flottants
+    particles = particles.filter(function (p) { return t - p.start < p.life; });
+    particles.forEach(function (p) {
+      var dt = (t - p.start) / 1000;
+      var x3 = p.x + p.vx * dt, y3 = p.y + p.vy * dt + 420 * dt * dt;
+      ctx.globalAlpha = Math.max(0, 1 - (t - p.start) / p.life);
+      ctx.beginPath(); ctx.arc(x3, y3, p.r, 0, Math.PI * 2); ctx.fillStyle = p.color; ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+    floaters = floaters.filter(function (f) { return t - f.start < f.life; });
+    floaters.forEach(function (f) {
+      var p2 = (t - f.start) / f.life;
+      if (p2 < 0) return;
+      ctx.globalAlpha = p2 < 0.75 ? 1 : 1 - (p2 - 0.75) / 0.25;
+      ctx.font = f.size + 'px ' + C.displayFont;
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      var y4 = f.y - p2 * 34;
+      ctx.lineWidth = 5; ctx.strokeStyle = 'rgba(4,38,45,0.55)'; ctx.strokeText(f.text, f.x, y4);
+      ctx.fillStyle = f.color; ctx.fillText(f.text, f.x, y4);
+      ctx.globalAlpha = 1;
+    });
+
+    anims = anims.filter(function (an) { return t - an.start < an.dur; });
+  }
+
+  function loop(t) {
+    var busy = anims.length || particles.length || floaters.length || drag || tutorialStep || !reduceMotion || t < shakeUntil;
+    if (dirty || busy) { render(t); dirty = false; }
+    requestAnimationFrame(loop);
+  }
+
+  // ---------- Effets ----------
+  function cellCenter(i) {
+    return { x: geo.bx + (i % N) * geo.cell + geo.cell / 2, y: geo.by + ((i / N) | 0) * geo.cell + geo.cell / 2 };
+  }
+  function burst(i, color, count) {
+    var c = cellCenter(i), now = performance.now();
+    for (var k = 0; k < count; k++) {
+      var ang = Math.random() * Math.PI * 2, sp = 60 + Math.random() * 160;
+      particles.push({ x: c.x, y: c.y, vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp - 120, r: 1.5 + Math.random() * 2.5,
+        color: color, start: now, life: 520 + Math.random() * 260 });
+    }
+  }
+  function floater(text, x, y, color, size, delay) {
+    floaters.push({ text: text, x: x, y: y, color: color, size: size || 22, start: performance.now() + (delay || 0), life: 1100 });
+  }
+
+  // ---------- Son (synthétisé, activé par l'utilisateur) ----------
+  var audio = null, soundOn = false;
+  function tone(freq, dur, type, vol, delay) {
+    if (!soundOn || !audio) return;
+    var t0 = audio.currentTime + (delay || 0);
+    var o = audio.createOscillator(), g = audio.createGain();
+    o.type = type || 'sine'; o.frequency.setValueAtTime(freq, t0);
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(vol || 0.12, t0 + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    o.connect(g); g.connect(audio.destination);
+    o.start(t0); o.stop(t0 + dur + 0.02);
+  }
+  function buzz(ms) { try { if (navigator.vibrate) navigator.vibrate(ms); } catch (e) {} }
+
+  // ---------- Jouer un coup ----------
+  function applyMove(k, r0, c0, silent) {
+    var piece = game.hand[k];
+    var colorIdx = handColors[k];
+    var before = game.grid.slice();
+    var beforeColors = colors.slice();
+    var ev = A.place(game, k, r0, c0);
+    if (!ev) return null;
+    ev.placed.forEach(function (i) { colors[i] = colorIdx; });
+    ev.cleared.forEach(function (cl) { colors[cl.index] = -1; });
+    if (game.hand[k]) refreshHandColors(); // une nouvelle main vient d'être distribuée
+    if (silent) { computeSea(); return ev; }
+
+    var now = performance.now();
+    var fast = reduceMotion ? 0.4 : 1;
+    ev.placed.forEach(function (i) { anims.push({ type: 'pop', i: i, start: now, dur: 140 }); });
+
+    // Perles : apparition en onde depuis la pièce posée
+    var pearlEnd = now;
+    ev.lagoons.forEach(function (lag) {
+      lag.cells.forEach(function (i) {
+        var d = 99;
+        ev.placed.forEach(function (p) { d = Math.min(d, Math.abs((p / N | 0) - (i / N | 0)) + Math.abs(p % N - i % N)); });
+        var st = now + 80 * fast + d * 45 * fast;
+        anims.push({ type: 'pearl', i: i, start: st, dur: 320 * fast });
+        pearlEnd = Math.max(pearlEnd, st + 320 * fast);
+      });
+      var mid = cellCenter(lag.cells[Math.floor(lag.cells.length / 2)]);
+      floater(lag.cells.length >= 6 ? 'Grand lagon ! +' + fmt(lag.points) : 'Lagon +' + fmt(lag.points), mid.x, mid.y, C['nacre-1'], lag.cells.length >= 6 ? 26 : 22, 120);
+      tone(880, 0.25, 'sine', 0.1, 0.05); tone(1320, 0.3, 'sine', 0.07, 0.12);
+    });
+
+    // Lignes : balayage d'effacement, les perles éclatent
+    if (ev.lines.length) {
+      var clearStart = ev.lagoons.length ? pearlEnd + 60 : now + 90 * fast;
+      var order = {};
+      ev.lines.forEach(function (L) { L.cells.forEach(function (i, j) { order[i] = Math.min(order[i] == null ? 99 : order[i], j); }); });
+      ev.cleared.forEach(function (cl) {
+        var wasPearlNow = ev.lagoons.some(function (lag) { return lag.cells.indexOf(cl.index) >= 0; });
+        var kind = cl.kind;
+        var col = beforeColors[cl.index] >= 0 ? beforeColors[cl.index] : (before[cl.index] === A.BLOCK ? colorIdx : 0);
+        if (ev.placed.indexOf(cl.index) >= 0) col = colorIdx;
+        var st = clearStart + order[cl.index] * 22 * fast;
+        anims.push({ type: 'clear', i: cl.index, start: st, dur: 260 * fast, kind: kind, color: col });
+        if (kind === A.PEARL || wasPearlNow) setTimeout(function () { burst(cl.index, C['nacre-2'], 7); }, Math.max(0, st - now));
+      });
+      var centerOf = function (L) { return cellCenter(L.cells[4]); };
+      ev.lines.forEach(function (L, idx) {
+        var cc = centerOf(L);
+        var label = L.pearls ? '×' + (1 + L.pearls) + '  +' + fmt(L.points) : '+' + fmt(L.points);
+        floater(label, cc.x, cc.y, L.pearls ? C['nacre-1'] : '#FFFFFF', L.pearls ? 24 : 20, clearStart - now + idx * 90);
+      });
+      var mult = [];
+      if (ev.multi > 1) mult.push(ev.multi + ' lignes ×' + ev.multi);
+      if (ev.combo > 1) mult.push('Combo ×' + (1 + 0.5 * (ev.combo - 1)).toLocaleString('fr-FR'));
+      if (mult.length) floater(mult.join(' · '), geo.bx + geo.size / 2, geo.by + geo.size * 0.12, C.gold, 26, clearStart - now + 200);
+      if (ev.multi > 1 || ev.points.lines >= 1000) shakeUntil = clearStart + 260;
+      var base = 520;
+      ev.lines.forEach(function (L, j) { tone(base * Math.pow(1.26, j + (ev.combo - 1)), 0.22, 'triangle', 0.09, (clearStart - now) / 1000 + j * 0.06); });
+      buzz(ev.multi > 1 ? 35 : 18);
+    } else {
+      tone(180, 0.08, 'square', 0.05);
+      buzz(8);
+    }
+
+    computeSea();
+    return ev;
+  }
+
+  function play(k, r0, c0) {
+    var ev = applyMove(k, r0, c0, false);
+    if (!ev) return;
+    session.moves.push([k, r0, c0]);
+    if (tutorialStep === 1 && ev.lagoons.length) tutorialStep = 2;
+    else if (tutorialStep === 2 && ev.lines.length) { tutorialStep = 0; save('atoll.tutoDone', true); }
+    else if (tutorialStep && game.hand.every(function (h) { return !h; })) tutorialStep = 0;
+    if (tutorialStep && !game.hand.some(function (h) { return h && h.family === 'dot'; })) { tutorialStep = 0; save('atoll.tutoDone', true); }
+    updateHud();
+    updateHint();
+    if (session.mode === 'classic' && game.score > load(bestKey(), 0)) save(bestKey(), game.score);
+    if (game.over) {
+      if (session.mode === 'daily') recordDaily();
+      clearTimeout(sheetTimer);
+      sheetTimer = setTimeout(function () { showSheet(false); }, reduceMotion ? 250 : 1100);
+    }
+  }
+
+  function recordDaily() {
+    var d = load(bestKey(), null);
+    if (!d) save(bestKey(), { official: game.score, attempts: 1 });
+    else { d.attempts = (d.attempts || 1) + 1; save(bestKey(), d); }
+  }
+
+  // ---------- Fin de partie ----------
+  function shareText() {
+    var head = session.mode === 'daily' ? 'ATOLL · Défi du ' + frDate(session.dayKey) : 'ATOLL · Classique';
+    var d = session.mode === 'daily' ? load(bestKey(), null) : null;
+    var score = d ? d.official : game.score;
+    var line2 = fmt(score) + ' pts' + (d && d.attempts > 1 ? ' (1er essai)' : '');
+    return head + '\n' + line2 + '\n🐚×' + game.pearlsCashed + '  🌊×' + game.lagoons + '  🔥combo ' + game.bestCombo +
+      '\nEncercle, fais des perles, représente ton pays.';
+  }
+
+  function showSheet(silent) {
+    var daily = session.mode === 'daily';
+    var d = daily ? load(bestKey(), null) : null;
+    el.sheetTitle.textContent = daily ? (d && d.attempts > 1 ? 'Entraînement terminé' : 'Défi terminé') : 'Plus de place !';
+    el.finalScore.textContent = fmt(game.score);
+    el.finalSub.textContent = daily
+      ? 'Score officiel du ' + frDate(session.dayKey) + ' : ' + fmt(d ? d.official : game.score) + '. Nouveau défi au prochain reset (9 h en France l\'été).'
+      : 'Record : ' + fmt(Math.max(load(bestKey(), 0), game.score));
+    el.stLagoons.textContent = fmt(game.lagoons);
+    el.stCashed.textContent = fmt(game.pearlsCashed);
+    el.stCombo.textContent = fmt(game.bestCombo);
+    el.stMoves.textContent = fmt(game.piecesPlaced);
+    var canRevive = !daily && game.revivesLeft > 0;
+    el.revive.hidden = !canRevive;
+    el.adNote.hidden = !canRevive;
+    el.again.textContent = daily ? 'S\'entraîner' : 'Rejouer';
+    el.share.value = shareText();
+    el.sheet.hidden = false;
+    if (!silent) { try { el.again.focus({ preventScroll: true }); } catch (e) {} }
+  }
+
+  // ---------- Glisser-déposer ----------
+  function toCanvas(e) {
+    var r = canvas.getBoundingClientRect();
+    return { x: (e.clientX - r.left) * (geo.w / r.width), y: (e.clientY - r.top) * (geo.h / r.height) };
+  }
+  function slotAt(p) {
+    if (p.y < geo.handTop - geo.cell * 0.3) return -1;
+    return Math.max(0, Math.min(2, Math.floor(p.x / geo.slotW)));
+  }
+  function updateTarget() {
+    var s = geo.cell;
+    var cx = drag.x, cy = drag.y - drag.lift;
+    var c0 = Math.round((cx - geo.bx) / s - drag.piece.w / 2);
+    var r0 = Math.round((cy - geo.by) / s - drag.piece.h / 2);
+    if (drag.keyboard) { c0 = drag.c0; r0 = drag.r0; }
+    if (c0 !== drag.c0 || r0 !== drag.r0 || drag.preview === undefined) {
+      drag.c0 = c0; drag.r0 = r0;
+      drag.preview = A.preview(game.grid, drag.piece, r0, c0, game.minLagoon);
+    }
+  }
+
+  canvas.addEventListener('pointerdown', function (e) {
+    if (!game || game.over || !el.sheet.hidden) return;
+    var p = toCanvas(e), k = slotAt(p);
+    if (k < 0 || !game.hand[k]) return;
+    canvas.setPointerCapture(e.pointerId);
+    drag = { k: k, piece: game.hand[k], x: p.x, y: p.y, lift: e.pointerType === 'mouse' ? geo.cell * 0.4 : geo.cell * 1.7,
+      r0: null, c0: null, preview: undefined, pointerId: e.pointerId };
+    updateTarget();
+    canvas.style.cursor = 'grabbing';
+    tone(330, 0.05, 'sine', 0.04);
+    e.preventDefault();
+  });
+  canvas.addEventListener('pointermove', function (e) {
+    if (!drag || drag.keyboard || e.pointerId !== drag.pointerId) return;
+    var p = toCanvas(e);
+    drag.x = p.x; drag.y = p.y;
+    updateTarget();
+    e.preventDefault();
+  });
+  function endDrag(e) {
+    if (!drag || drag.keyboard || e.pointerId !== drag.pointerId) return;
+    var d = drag;
+    drag = null;
+    canvas.style.cursor = 'grab';
+    if (d.preview) play(d.k, d.r0, d.c0);
+    dirty = true;
+  }
+  canvas.addEventListener('pointerup', endDrag);
+  canvas.addEventListener('pointercancel', function (e) { if (drag && e.pointerId === drag.pointerId) { drag = null; dirty = true; } });
+
+  // Clavier : 1-3 choisir, flèches déplacer, Entrée poser, Échap annuler
+  canvas.addEventListener('keydown', function (e) {
+    if (!game || game.over) return;
+    var key = e.key;
+    if (key === '1' || key === '2' || key === '3') {
+      var k = +key - 1;
+      if (!game.hand[k]) return;
+      drag = { k: k, piece: game.hand[k], keyboard: true, x: 0, y: 0, lift: 0,
+        r0: Math.floor((N - game.hand[k].h) / 2), c0: Math.floor((N - game.hand[k].w) / 2), preview: undefined };
+      drag.preview = A.preview(game.grid, drag.piece, drag.r0, drag.c0, game.minLagoon);
+      e.preventDefault(); return;
+    }
+    if (!drag || !drag.keyboard) return;
+    var moves = { ArrowUp: [-1, 0], ArrowDown: [1, 0], ArrowLeft: [0, -1], ArrowRight: [0, 1] };
+    if (moves[key]) {
+      drag.r0 = Math.max(0, Math.min(N - drag.piece.h, drag.r0 + moves[key][0]));
+      drag.c0 = Math.max(0, Math.min(N - drag.piece.w, drag.c0 + moves[key][1]));
+      drag.preview = A.preview(game.grid, drag.piece, drag.r0, drag.c0, game.minLagoon);
+      e.preventDefault();
+    } else if (key === 'Enter' || key === ' ') {
+      var d = drag; drag = null;
+      if (d.preview) play(d.k, d.r0, d.c0);
+      e.preventDefault();
+    } else if (key === 'Escape') {
+      drag = null; e.preventDefault();
+    }
+    dirty = true;
+  });
+
+  // ---------- Boutons ----------
+  el.modeClassic.addEventListener('click', function () { if (session.mode !== 'classic') start('classic'); });
+  el.modeDaily.addEventListener('click', function () { if (session.mode !== 'daily') start('daily'); });
+  el.btnNew.addEventListener('click', function () { start(session.mode); });
+  el.again.addEventListener('click', function () { start(session.mode); });
+  el.revive.addEventListener('click', function () {
+    if (A.revive(game)) {
+      session.moves.push('revive');
+      refreshHandColors();
+      el.sheet.hidden = true;
+      setHint('Nouvelle main garantie jouable. Dans le vrai jeu, c\'est la pub récompensée.');
+      dirty = true;
+    }
+  });
+  el.copy.addEventListener('click', function () {
+    var txt = el.share.value;
+    var done = function () { el.copy.textContent = 'Copié'; setTimeout(function () { el.copy.textContent = 'Copier le résultat'; }, 1600); };
+    var fallback = function () { el.share.focus(); el.share.select(); el.copy.textContent = 'Texte sélectionné'; };
+    try { navigator.clipboard.writeText(txt).then(done, fallback); } catch (e) { fallback(); }
+  });
+  el.btnSound.addEventListener('click', function () {
+    soundOn = !soundOn;
+    if (soundOn && !audio) { try { audio = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { soundOn = false; } }
+    if (audio && audio.state === 'suspended') audio.resume();
+    el.btnSound.setAttribute('aria-pressed', String(soundOn));
+    el.btnSound.textContent = soundOn ? 'Son : activé' : 'Son : coupé';
+    tone(660, 0.12, 'sine', 0.08);
+  });
+  el.btnRules.addEventListener('click', function () {
+    el.rules.hidden = !el.rules.hidden;
+    el.btnRules.setAttribute('aria-expanded', String(!el.rules.hidden));
+  });
+
+  // ---------- Démarrage (avec reprise si la page est mise à jour) ----------
+  function boot(data) {
+    layout();
+    if (data && data.session && data.session.seed != null) {
+      var s = data.session;
+      startSession({ mode: s.mode, seed: s.seed, tutorial: s.tutorial, dayKey: s.dayKey, moves: [] }, s.moves || []);
+    } else {
+      start('classic');
+    }
+    if (window.claude && window.claude.hot && window.claude.hot.snapshot) {
+      window.claude.hot.snapshot(function () { return { session: session }; });
+    }
+    try { new ResizeObserver(function () { layout(); }).observe(stage); } catch (e) { window.addEventListener('resize', layout); }
+    requestAnimationFrame(loop);
+  }
+  var hot = window.claude && window.claude.hot;
+  if (hot && hot.ready) hot.ready(boot); else boot((hot && hot.data) || {});
+})();
+</script>
+</body>
+</html>
