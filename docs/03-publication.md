@@ -25,6 +25,14 @@ ou définis la variable `ATOLL_APP_ID` dans la CI.
 
 ## 3. Clé de signature (upload key)
 
+**Sans GitHub** : si tu as déjà une clé (`atoll-upload.jks`) et un AAB non signé, signe-le avec le JDK :
+```bash
+jarsigner -keystore atoll-upload.jks -sigalg SHA256withRSA -digestalg SHA-256 atoll-release.aab atoll
+```
+L'AAB signé s'envoie tel quel dans la Play Console. **Garde la clé et son mot de passe en lieu sûr** (sans eux, plus de mises à jour possibles, sauf procédure de réinitialisation auprès de Google).
+
+**Avec GitHub Actions :**
+
 1. Génère une clé (une seule fois, garde-la précieusement, avec ses mots de passe) :
    ```bash
    keytool -genkeypair -v -keystore upload.jks -alias atoll -keyalg RSA -keysize 2048 -validity 10000
