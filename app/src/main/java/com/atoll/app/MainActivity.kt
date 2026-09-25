@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
         val app = application as AtollApp
         val ads = AdsService(applicationContext)
         lateinit var billing: BillingService
-        billing = BillingService(applicationContext) { owned -> runOnUiThread { state.setAdsRemoved(owned) } }
+        billing = BillingService(applicationContext) { owned -> runOnUiThread { state.markAdsRemoved(owned) } }
         state = AppState(this, lifecycleScope, ads, billing)
 
         setContent { AtollTheme { AtollRoot(state) } }

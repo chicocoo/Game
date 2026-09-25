@@ -93,9 +93,9 @@ class AppState(
         games.saveCloud(activity, store.exportJson(), "ATOLL")
     }
 
-    fun setCountry(code: String) { store.country = code; country = code }
+    fun chooseCountry(code: String) { store.country = code; country = code }
 
-    fun setAdsRemoved(owned: Boolean) {
+    fun markAdsRemoved(owned: Boolean) {
         if (owned) { store.adsRemoved = true; adsRemoved = true }
     }
 

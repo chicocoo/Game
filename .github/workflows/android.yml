@@ -46,7 +46,11 @@ jobs:
           ATOLL_ADMOB_INTERSTITIAL: ${{ secrets.ATOLL_ADMOB_INTERSTITIAL }}
           ATOLL_LINK_HOST: ${{ vars.ATOLL_LINK_HOST }}
           ATOLL_VERSION_CODE: ${{ github.run_number }}
-        run: ./gradlew :app:assembleDebug :app:bundleRelease --no-daemon --stacktrace
+        run: ./gradlew :app:assembleDebug :app:bundleRelease --no-daemon 2>&1 | tee build.log; exit ${PIPESTATUS[0]}
+
+      - name: Résumé des erreurs
+        if: failure()
+        run: grep -E "^e: |error:|What went wrong|Could not" build.log | head -80 || true
 
       - uses: actions/upload-artifact@v4
         with:

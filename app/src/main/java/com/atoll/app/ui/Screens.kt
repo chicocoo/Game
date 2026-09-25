@@ -504,7 +504,7 @@ private fun SettingsScreen(state: AppState) {
         Spacer(Modifier.height(16.dp))
     }
 
-    if (pickCountry) CountryDialog(current = state.country, onPick = { state.setCountry(it); pickCountry = false }, onDismiss = { pickCountry = false })
+    if (pickCountry) CountryDialog(current = state.country, onPick = { state.chooseCountry(it); pickCountry = false }, onDismiss = { pickCountry = false })
 }
 
 @Composable
