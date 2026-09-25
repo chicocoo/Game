@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">ATOLL</string>
+    <string name="tagline">Enclose. Make pearls. Represent your country.</string>
+    <string name="back">Back</string>
+    <string name="home">Home</string>
+    <string name="play">Play</string>
+    <string name="resume">Resume your game</string>
+    <string name="new_game">New game</string>
+    <string name="play_again">Play again</string>
+    <string name="next">Continue</string>
+    <string name="later">Later</string>
+    <string name="close">Close</string>
+    <string name="skip">Skip</string>
+    <string name="share">Share</string>
+    <string name="refresh">Refresh</string>
+    <string name="score">Score</string>
+    <string name="target">Target</string>
+    <string name="pieces_left">Pieces</string>
+    <string name="pearls">Pearls</string>
+    <string name="mode_classic">Classic</string>
+    <string name="mode_classic_desc">Endless, offline. Enclose empty squares to grow pearls that multiply your lines.</string>
+    <string name="mode_daily">Nations Challenge</string>
+    <string name="mode_daily_desc">The same 45 pieces for the whole planet. One official attempt: your score counts for your country.</string>
+    <string name="daily_label">Challenge #%1$d</string>
+    <string name="play_daily">Play today\'s challenge</string>
+    <string name="daily_done_home">Your official score today: %1$s</string>
+    <string name="daily_streak">%1$d-day streak</string>
+    <string name="daily_rule">Official attempt: same pieces for everyone, no ads, no bonus. Only this game counts.</string>
+    <string name="practice">Practice</string>
+    <string name="practice_rule">Practice run on today\'s pieces. It does not count.</string>
+    <string name="daily_official">Official score today: %1$s</string>
+    <string name="next_in">Next challenge in %1$s</string>
+    <string name="mode_tour">World Tour</string>
+    <string name="mode_tour_desc">18 stages across 6 seas. Reach the target, pick souvenirs that bend the rules, survive the storms.</string>
+    <string name="tour_start">Set off</string>
+    <string name="tour_weekly">Weekly Grand Tour</string>
+    <string name="tour_meta">%1$d Miles · best: stage %2$d/%3$d</string>
+    <string name="tour_again">New voyage</string>
+    <string name="tour_complete">World Tour complete!</string>
+    <string name="stage_n">Stage %1$d/%2$d</string>
+    <string name="stage_goal">Reach %1$s points with %2$d pieces.</string>
+    <string name="stage_won">Stage cleared!</string>
+    <string name="stage_lost">Shipwreck</string>
+    <string name="stage_spare">%1$d pieces to spare, turned into Miles.</string>
+    <string name="run_over">End of the voyage</string>
+    <string name="run_summary">%1$d stages cleared · %2$d Miles earned</string>
+    <string name="set_sail">Set sail</string>
+    <string name="storm">Storm</string>
+    <string name="your_souvenirs">Your souvenirs</string>
+    <string name="choose_souvenir">Pick a souvenir</string>
+    <string name="choose_souvenir_desc">It stays with you until the end of the voyage.</string>
+    <string name="unlocked">New souvenirs unlocked</string>
+    <string name="nations">Nations</string>
+    <string name="nations_desc">Today\'s medal table, computed from the world top 100.</string>
+    <string name="nations_explain">Each score in today\'s world top 100 earns points for its country: 100 for 1st, 99 for 2nd… The podium wins medals.</string>
+    <string name="nations_points_explain">Points = sum of (101 − rank) over the top 100.</string>
+    <string name="nations_empty">No scores yet today. Be the first to put your country on the board!</string>
+    <string name="pgs_not_configured">Leaderboards are not set up in this build yet.</string>
+    <string name="sign_in">Sign in with Google Play Games</string>
+    <string name="leaderboards">Leaderboards</string>
+    <string name="achievements">Achievements</string>
+    <string name="rank_top">top %1$d%%</string>
+    <string name="rank_country">#%1$s in %2$s</string>
+    <string name="over_classic">No more room!</string>
+    <string name="over_daily">Challenge complete</string>
+    <string name="over_practice">Practice over</string>
+    <string name="new_record">New personal best!</string>
+    <string name="best_is">Best: %1$s</string>
+    <string name="revive_ad">Continue · watch an ad</string>
+    <string name="revive_free">Continue</string>
+    <string name="stat_lagoons">Lagoons</string>
+    <string name="stat_pearls">Pearls</string>
+    <string name="stat_combo">Combo</string>
+    <string name="stat_moves">Moves</string>
+    <string name="send_challenge">Challenge a friend on this game</string>
+    <string name="challenge">Challenge</string>
+    <string name="challenge_title">%1$s challenges you!</string>
+    <string name="challenge_desc">Same pieces, same order. Beat %1$s points.</string>
+    <string name="challenge_accept">Accept the challenge</string>
+    <string name="challenge_vs">Score to beat: %1$s</string>
+    <string name="challenge_won">You beat %1$s!</string>
+    <string name="challenge_lost">%1$s holds on…</string>
+    <string name="share_challenge">I scored %1$s on ATOLL. Same pieces, can you beat me?\n%2$s</string>
+    <string name="share_challenge_back">Challenge answered: %1$s. Your turn!\n%2$s</string>
+    <string name="share_classic">I scored %1$s on ATOLL, the block puzzle where you grow pearls.</string>
+    <string name="share_daily_head">ATOLL · Nations Challenge #%1$d %2$s</string>
+    <string name="share_daily_cta">Same pieces for everyone. Beat me:</string>
+    <string name="hint_rule">Enclose at least %1$d empty squares: they turn into pearls, and each pearl multiplies the line that clears it.</string>
+    <string name="tuto_1">Drag a small square into the gap of the ring (blinking square) to create your first lagoon.</string>
+    <string name="tuto_2">A lagoon! Drop the other small square at the end of the pearl line: 2 pearls = line ×3.</string>
+    <string name="fog_notice">Fog: no preview of pearls and lines in this stage.</string>
+    <string name="next_hand">Next hand: %1$s squares</string>
+    <string name="undo">Undo (%1$d)</string>
+    <string name="board_description">ATOLL board. Drag a piece from the tray onto the grid.</string>
+    <string name="settings">Settings</string>
+    <string name="your_country">Your country</string>
+    <string name="world_citizen">World citizen</string>
+    <string name="country_explain">Your Nations Challenge scores count for this country. Chosen by you, never from your location.</string>
+    <string name="sound">Sound</string>
+    <string name="haptics">Vibrations</string>
+    <string name="big_cells">Bigger pieces in the tray</string>
+    <string name="reminders">Daily challenge reminder</string>
+    <string name="remove_ads">Remove ads %1$s</string>
+    <string name="ads_removed">Ads removed. Thank you!</string>
+    <string name="restore_purchases">Restore purchases</string>
+    <string name="privacy_options">Privacy options</string>
+    <string name="replay_tutorial">Replay the tutorial</string>
+    <string name="about">ATOLL %1$s · Made with Google Play Games. No account or server needed: your progress stays on your phone and in your Play Games cloud save.</string>
+    <string name="notif_channel">Daily challenge</string>
+    <string name="notif_title">Today\'s Nations Challenge is ready</string>
+    <string name="notif_text">Same 45 pieces for the whole planet. Your country is counting on you!</string>
+    <string name="fx_lagoon">Lagoon</string>
+    <string name="fx_grand_lagoon">Grand lagoon!</string>
+    <string name="fx_lines" formatted="false">%d lines</string>
+    <string name="fx_combo" formatted="false">Combo ×%s</string>
+    <string-array name="sea_names">
+        <item>Turquoise Lagoon</item>
+        <item>Coral Sea</item>
+        <item>Archipelago of Winds</item>
+        <item>Monsoon Sea</item>
+        <item>Pearl Reef</item>
+        <item>Ocean of Storms</item>
+    </string-array>
+    <string-array name="storm_names">
+        <item>Fog</item>
+        <item>Swell</item>
+        <item>Reef</item>
+        <item>Heavy sea</item>
+        <item>Countercurrent</item>
+        <item>Flat calm</item>
+    </string-array>
+    <string-array name="storm_descs">
+        <item>No preview of pearls and lines.</item>
+        <item>Every 5 pieces, a rock appears on the edge.</item>
+        <item>6 rocks already block the board.</item>
+        <item>Big pieces come twice as often.</item>
+        <item>Lagoons need at least 4 squares.</item>
+        <item>No combos.</item>
+    </string-array>
+    <string-array name="souvenir_names">
+        <item>Diver</item>
+        <item>Nacre</item>
+        <item>Low tide</item>
+        <item>Tailwind</item>
+        <item>Shell</item>
+        <item>Lighthouse</item>
+        <item>Anchor</item>
+        <item>Net</item>
+        <item>Compass</item>
+        <item>Treasure map</item>
+        <item>Coral</item>
+        <item>Palm tree</item>
+    </string-array>
+    <string-array name="souvenir_descs">
+        <item>A single enclosed square becomes a pearl.</item>
+        <item>Each pearl multiplies its line one step more.</item>
+        <item>Every hand has a one-square piece.</item>
+        <item>+3 pieces per stage.</item>
+        <item>Lagoons score 50% more.</item>
+        <item>Combos last 5 moves.</item>
+        <item>A line made only of pearls scores ×3.</item>
+        <item>Undo one move per stage.</item>
+        <item>See the next hand.</item>
+        <item>The first lagoon of each stage scores ×5.</item>
+        <item>Lagoons of 6+ squares also clear their ring.</item>
+        <item>Each lagoon of 6+ squares adds +1 line multiplier for the stage.</item>
+    </string-array>
+</resources>

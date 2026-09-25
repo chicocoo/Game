@@ -70,6 +70,16 @@ class CoreTest {
         assertEquals(Game.EMPTY, h.cell(2, 4))
     }
 
+    @Test fun `tutoriel, lagon puis ligne de perles`() {
+        val g = Game(Mode.CLASSIC, 3)
+        g.applyTutorial()
+        assertEquals(1, g.place(0, 5, 5)!!.lagoons.size)
+        val ev = g.place(1, 4, 8)!!
+        assertEquals(1, ev.lines.size)
+        assertEquals(2, ev.lines[0].pearls)
+        assertEquals(270, ev.linePoints)
+    }
+
     @Test fun `la mer ne devient jamais lagon`() {
         val g = Game(Mode.CLASSIC, 1)
         g.draw("#.#......", "###......")

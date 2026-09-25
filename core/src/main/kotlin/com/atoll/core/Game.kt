@@ -395,6 +395,18 @@ class Game(
         return true
     }
 
+    /**
+     * Première partie : un anneau presque fermé autour de deux cases et une ligne à compléter.
+     * À appeler juste après la création (aussi avant un rejeu de coups).
+     */
+    fun applyTutorial() {
+        val blocks = listOf(3 to 3, 3 to 4, 3 to 5, 3 to 6, 4 to 3, 4 to 6, 5 to 3, 5 to 4, 5 to 6, 4 to 0, 4 to 1, 4 to 2, 4 to 7)
+        s.grid.fill(EMPTY); s.colors.fill(-1)
+        blocks.forEach { (r, c) -> s.grid[r * N + c] = BLOCK; s.colors[r * N + c] = (r + c) % 5 }
+        val dot = Pieces.byFamily("dot")
+        s.hand[0] = Slot(dot, 1); s.hand[1] = Slot(dot, 3); s.hand[2] = Slot(Pieces.ALL.first { it.family == "i3" && it.w == 3 }, 2)
+    }
+
     /** Copie indépendante de la partie (simulations, bots). */
     fun fork(): Game {
         val g = Game(mode, seed, rules, pieceCount, target)

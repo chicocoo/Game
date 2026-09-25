@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Identifiants Google Play Games Services, à copier depuis la Play Console
+  (Croissance > Play Games Services > Configuration). Voir docs/03-publication.md.
+  Tant qu'ils valent 0 / vide, le jeu fonctionne hors-ligne sans classements.
+-->
+<resources>
+    <string name="game_services_project_id" translatable="false">0</string>
+
+    <string name="lb_daily_world" translatable="false"></string>
+    <string name="lb_classic" translatable="false"></string>
+    <string name="lb_tour" translatable="false"></string>
+
+    <!-- Classements par pays (optionnels) : "CODE=identifiant". Codes ISO, plus R_AF, R_AS, R_EU, R_NA, R_SA, R_OC pour « reste du continent ». -->
+    <string-array name="lb_countries" translatable="false">
+    </string-array>
+
+    <!-- Succès : "CLÉ=identifiant". Clés : voir Achievement.kt -->
+    <string-array name="achievements" translatable="false">
+    </string-array>
+
+    <!-- Produit Play Billing (achat unique) -->
+    <string name="product_remove_ads" translatable="false">remove_ads</string>
+</resources>

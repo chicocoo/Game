@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tagline">Encercle. Fais des perles. Représente ton pays.</string>
+    <string name="back">Retour</string>
+    <string name="home">Accueil</string>
+    <string name="play">Jouer</string>
+    <string name="resume">Reprendre la partie</string>
+    <string name="new_game">Nouvelle partie</string>
+    <string name="play_again">Rejouer</string>
+    <string name="next">Continuer</string>
+    <string name="later">Plus tard</string>
+    <string name="close">Fermer</string>
+    <string name="skip">Passer</string>
+    <string name="share">Partager</string>
+    <string name="refresh">Actualiser</string>
+    <string name="score">Score</string>
+    <string name="target">Objectif</string>
+    <string name="pieces_left">Pièces</string>
+    <string name="pearls">Perles</string>
+    <string name="mode_classic">Classique</string>
+    <string name="mode_classic_desc">Partie infinie, hors-ligne. Encercle des cases vides pour faire pousser des perles qui multiplient tes lignes.</string>
+    <string name="mode_daily">Défi des Nations</string>
+    <string name="mode_daily_desc">Les mêmes 45 pièces pour toute la planète. Un seul essai officiel : ton score compte pour ton pays.</string>
+    <string name="daily_label">Défi n° %1$d</string>
+    <string name="play_daily">Jouer le défi du jour</string>
+    <string name="daily_done_home">Ton score officiel du jour : %1$s</string>
+    <string name="daily_streak">Série de %1$d jour(s)</string>
+    <string name="daily_rule">Essai officiel : mêmes pièces pour tous, sans pub ni bonus. Seule cette partie compte.</string>
+    <string name="practice">S\'entraîner</string>
+    <string name="practice_rule">Entraînement sur les pièces du jour. Il ne compte pas.</string>
+    <string name="daily_official">Score officiel du jour : %1$s</string>
+    <string name="next_in">Prochain défi dans %1$s</string>
+    <string name="mode_tour">Tour du monde</string>
+    <string name="mode_tour_desc">18 étapes sur 6 mers. Atteins l\'objectif, choisis des souvenirs qui changent les règles, survis aux tempêtes.</string>
+    <string name="tour_start">Prendre la mer</string>
+    <string name="tour_weekly">Grand Tour de la semaine</string>
+    <string name="tour_meta">%1$d Miles · record : étape %2$d/%3$d</string>
+    <string name="tour_again">Nouveau voyage</string>
+    <string name="tour_complete">Tour du monde bouclé !</string>
+    <string name="stage_n">Étape %1$d/%2$d</string>
+    <string name="stage_goal">Atteins %1$s points avec %2$d pièces.</string>
+    <string name="stage_won">Étape réussie !</string>
+    <string name="stage_lost">Naufrage</string>
+    <string name="stage_spare">%1$d pièces d\'avance, converties en Miles.</string>
+    <string name="run_over">Fin du voyage</string>
+    <string name="run_summary">%1$d étapes réussies · %2$d Miles gagnés</string>
+    <string name="set_sail">Larguer les amarres</string>
+    <string name="storm">Tempête</string>
+    <string name="your_souvenirs">Tes souvenirs</string>
+    <string name="choose_souvenir">Choisis un souvenir</string>
+    <string name="choose_souvenir_desc">Il t\'accompagne jusqu\'à la fin du voyage.</string>
+    <string name="unlocked">Nouveaux souvenirs débloqués</string>
+    <string name="nations">Nations</string>
+    <string name="nations_desc">Le tableau des médailles du jour, calculé à partir du top 100 mondial.</string>
+    <string name="nations_explain">Chaque score du top 100 mondial du jour rapporte des points à son pays : 100 pour le 1er, 99 pour le 2e… Le podium gagne des médailles.</string>
+    <string name="nations_points_explain">Points = somme de (101 − rang) sur le top 100.</string>
+    <string name="nations_empty">Aucun score pour l\'instant. Sois le premier à mettre ton pays au tableau !</string>
+    <string name="pgs_not_configured">Les classements ne sont pas encore configurés dans cette version.</string>
+    <string name="sign_in">Se connecter à Google Play Games</string>
+    <string name="leaderboards">Classements</string>
+    <string name="achievements">Succès</string>
+    <string name="rank_top">top %1$d %%</string>
+    <string name="rank_country">n° %1$s en %2$s</string>
+    <string name="over_classic">Plus de place !</string>
+    <string name="over_daily">Défi terminé</string>
+    <string name="over_practice">Entraînement terminé</string>
+    <string name="new_record">Nouveau record !</string>
+    <string name="best_is">Record : %1$s</string>
+    <string name="revive_ad">Continuer · regarder une pub</string>
+    <string name="revive_free">Continuer</string>
+    <string name="stat_lagoons">Lagons</string>
+    <string name="stat_pearls">Perles</string>
+    <string name="stat_combo">Combo</string>
+    <string name="stat_moves">Poses</string>
+    <string name="send_challenge">Défier un ami sur cette partie</string>
+    <string name="challenge">Défi</string>
+    <string name="challenge_title">%1$s te défie !</string>
+    <string name="challenge_desc">Mêmes pièces, même ordre. Bats %1$s points.</string>
+    <string name="challenge_accept">Relever le défi</string>
+    <string name="challenge_vs">Score à battre : %1$s</string>
+    <string name="challenge_won">Tu as battu %1$s !</string>
+    <string name="challenge_lost">%1$s résiste…</string>
+    <string name="share_challenge">J\'ai fait %1$s sur ATOLL. Mêmes pièces, tu me bats ?\n%2$s</string>
+    <string name="share_challenge_back">Défi relevé : %1$s. À toi !\n%2$s</string>
+    <string name="share_classic">J\'ai fait %1$s sur ATOLL, le puzzle où l\'on fait pousser des perles.</string>
+    <string name="share_daily_head">ATOLL · Défi des Nations n° %1$d %2$s</string>
+    <string name="share_daily_cta">Mêmes pièces pour tout le monde. Bats-moi :</string>
+    <string name="hint_rule">Encercle au moins %1$d cases vides : elles deviennent des perles, et chaque perle multiplie la ligne qui l\'efface.</string>
+    <string name="tuto_1">Glisse un petit carré dans l\'ouverture de l\'anneau (case qui clignote) : tu vas créer ton premier lagon.</string>
+    <string name="tuto_2">Un lagon ! Pose l\'autre petit carré au bout de la ligne des perles : 2 perles = ligne ×3.</string>
+    <string name="fog_notice">Brouillard : pas d\'aperçu des perles et des lignes dans cette étape.</string>
+    <string name="next_hand">Main suivante : %1$s cases</string>
+    <string name="undo">Annuler (%1$d)</string>
+    <string name="board_description">Plateau ATOLL. Glisse une pièce de la réserve vers la grille.</string>
+    <string name="settings">Réglages</string>
+    <string name="your_country">Ton pays</string>
+    <string name="world_citizen">Citoyen du monde</string>
+    <string name="country_explain">Tes scores du Défi des Nations comptent pour ce pays. Choisi par toi, jamais d\'après ta position.</string>
+    <string name="sound">Son</string>
+    <string name="haptics">Vibrations</string>
+    <string name="big_cells">Pièces plus grandes dans la réserve</string>
+    <string name="reminders">Rappel du défi quotidien</string>
+    <string name="remove_ads">Retirer les pubs %1$s</string>
+    <string name="ads_removed">Pubs retirées. Merci !</string>
+    <string name="restore_purchases">Restaurer les achats</string>
+    <string name="privacy_options">Options de confidentialité</string>
+    <string name="replay_tutorial">Revoir le tutoriel</string>
+    <string name="about">ATOLL %1$s · Fait avec Google Play Games. Aucun compte ni serveur : ta progression reste sur ton téléphone et dans ta sauvegarde Play Games.</string>
+    <string name="notif_channel">Défi quotidien</string>
+    <string name="notif_title">Le Défi des Nations du jour est prêt</string>
+    <string name="notif_text">Les mêmes 45 pièces pour toute la planète. Ton pays compte sur toi !</string>
+    <string name="fx_lagoon">Lagon</string>
+    <string name="fx_grand_lagoon">Grand lagon !</string>
+    <string name="fx_lines" formatted="false">%d lignes</string>
+    <string name="fx_combo" formatted="false">Combo ×%s</string>
+    <string-array name="sea_names">
+        <item>Lagon turquoise</item>
+        <item>Mer de corail</item>
+        <item>Archipel des vents</item>
+        <item>Mer des moussons</item>
+        <item>Récif nacré</item>
+        <item>Océan des tempêtes</item>
+    </string-array>
+    <string-array name="storm_names">
+        <item>Brouillard</item>
+        <item>Houle</item>
+        <item>Récif</item>
+        <item>Grosse mer</item>
+        <item>Contre-courant</item>
+        <item>Calme plat</item>
+    </string-array>
+    <string-array name="storm_descs">
+        <item>Pas d\'aperçu des perles ni des lignes.</item>
+        <item>Toutes les 5 pièces, un rocher apparaît sur le bord.</item>
+        <item>6 rochers encombrent déjà le plateau.</item>
+        <item>Les grosses pièces arrivent deux fois plus souvent.</item>
+        <item>Il faut au moins 4 cases pour un lagon.</item>
+        <item>Pas de combo.</item>
+    </string-array>
+    <string-array name="souvenir_names">
+        <item>Plongeur</item>
+        <item>Nacre</item>
+        <item>Marée basse</item>
+        <item>Vent arrière</item>
+        <item>Coquillage</item>
+        <item>Phare</item>
+        <item>Ancre</item>
+        <item>Filet</item>
+        <item>Boussole</item>
+        <item>Carte au trésor</item>
+        <item>Corail</item>
+        <item>Palmier</item>
+    </string-array>
+    <string-array name="souvenir_descs">
+        <item>Une seule case encerclée devient une perle.</item>
+        <item>Chaque perle multiplie sa ligne d\'un cran de plus.</item>
+        <item>Chaque main contient une pièce d\'une case.</item>
+        <item>+3 pièces par étape.</item>
+        <item>Les lagons rapportent 50 % de plus.</item>
+        <item>Les combos tiennent 5 poses.</item>
+        <item>Une ligne entièrement en perles vaut ×3.</item>
+        <item>Annuler une pose par étape.</item>
+        <item>Voir la main suivante.</item>
+        <item>Le premier lagon de chaque étape vaut ×5.</item>
+        <item>Les lagons de 6 cases et plus effacent aussi leur anneau.</item>
+        <item>Chaque lagon de 6 cases et plus ajoute +1 multiplicateur de lignes pour l\'étape.</item>
+    </string-array>
+</resources>

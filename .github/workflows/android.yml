@@ -1,0 +1,59 @@
+name: Android
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: android-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Clé de signature (si les secrets sont configurés)
+        env:
+          KEYSTORE_B64: ${{ secrets.ATOLL_KEYSTORE_BASE64 }}
+        run: |
+          if [ -n "$KEYSTORE_B64" ]; then
+            echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/upload.jks"
+            echo "ATOLL_KEYSTORE=$RUNNER_TEMP/upload.jks" >> "$GITHUB_ENV"
+          fi
+
+      - name: Tests de la logique de jeu
+        run: ./gradlew :core:test --no-daemon
+
+      - name: Compiler l'APK de test et le bundle Play Store
+        env:
+          ATOLL_KEYSTORE_PASSWORD: ${{ secrets.ATOLL_KEYSTORE_PASSWORD }}
+          ATOLL_KEY_ALIAS: ${{ secrets.ATOLL_KEY_ALIAS }}
+          ATOLL_KEY_PASSWORD: ${{ secrets.ATOLL_KEY_PASSWORD }}
+          ATOLL_ADMOB_APP_ID: ${{ secrets.ATOLL_ADMOB_APP_ID }}
+          ATOLL_ADMOB_REWARDED: ${{ secrets.ATOLL_ADMOB_REWARDED }}
+          ATOLL_ADMOB_INTERSTITIAL: ${{ secrets.ATOLL_ADMOB_INTERSTITIAL }}
+          ATOLL_LINK_HOST: ${{ vars.ATOLL_LINK_HOST }}
+          ATOLL_VERSION_CODE: ${{ github.run_number }}
+        run: ./gradlew :app:assembleDebug :app:bundleRelease --no-daemon --stacktrace
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: atoll-debug-apk
+          path: app/build/outputs/apk/debug/*.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: atoll-release-aab
+          path: app/build/outputs/bundle/release/*.aab
