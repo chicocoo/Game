@@ -142,8 +142,8 @@ private fun countryName(code: String): String =
 private fun countdown(): String {
     var now by remember { mutableStateOf(Instant.now()) }
     LaunchedEffect(Unit) { while (true) { delay(1000); now = Instant.now() } }
-    val d = Duration.between(now, Daily.nextReset(now))
-    return String.format(Locale.ROOT, "%02d:%02d:%02d", d.toHours(), d.toMinutesPart(), d.toSecondsPart())
+    val sec = Duration.between(now, Daily.nextReset(now)).seconds.coerceAtLeast(0)
+    return String.format(Locale.ROOT, "%02d:%02d:%02d", sec / 3600, (sec / 60) % 60, sec % 60)
 }
 
 // ---------- Accueil ----------

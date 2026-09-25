@@ -99,7 +99,7 @@ Play Console : **Monétiser > Produits > Produits intégrés à l'application** 
 
 ## 9. Politique de confidentialité et liens de défi
 
-Une page web gratuite suffit (GitHub Pages sur ton compte) :
+Une page web gratuite suffit (GitHub Pages sur ton compte). Des modèles prêts à remplir sont dans [`site/`](../site/) : `privacy.html`, `d/index.html` (page de défi qui renvoie vers le Play Store) et `.well-known/assetlinks.json`.
 - `privacy.html` : quelles données (voir §8), qui les traite (Google AdMob, Google Play Games), contact.
 - Facultatif : un domaine pour les **liens de défi** `https://<domaine>/d/?s=…`. Publie `/.well-known/assetlinks.json` avec l'empreinte SHA-256 de la clé d'app, puis définis la variable GitHub `ATOLL_LINK_HOST`. Sans domaine, les défis passent par un lien Play Store avec paramètre `referrer` : l'ami installe le jeu et arrive directement dans le défi.
 
