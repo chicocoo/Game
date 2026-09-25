@@ -3,8 +3,17 @@ name: Android
 on:
   push:
     branches: ["**"]
+    paths-ignore: ["dist/**"]
   pull_request:
   workflow_dispatch:
+    inputs:
+      commit_builds:
+        description: "Déposer l'APK et l'AAB dans dist/ sur la branche"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
 
 concurrency:
   group: android-${{ github.ref }}
@@ -64,3 +73,15 @@ jobs:
         with:
           name: atoll-release-aab
           path: app/build/outputs/bundle/release/*.aab
+
+      - name: Déposer les fichiers compilés dans dist/
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.commit_builds }}
+        run: |
+          mkdir -p dist
+          cp app/build/outputs/apk/debug/*.apk dist/atoll-debug.apk
+          cp app/build/outputs/bundle/release/*.aab dist/atoll-release-unsigned.aab
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dist
+          git commit -m "Fichiers compilés (APK de test, AAB) [skip ci]"
+          git push
